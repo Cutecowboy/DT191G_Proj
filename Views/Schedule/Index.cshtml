@@ -7,7 +7,7 @@
 
 }
 
-<h1>Index</h1>
+<h1>Book</h1>
 
 @if (admin)
 {
@@ -81,3 +81,8 @@
         }
     </tbody>
 </table>
+
+@if(!ViewBag.loggedIn) 
+{
+    <p>Please <a asp-area="Identity" asp-page="/Account/Login"> login</a> or <a asp-area="Identity" asp-page="/Account/Register"> register</a> to book your therapy</p>
+}
