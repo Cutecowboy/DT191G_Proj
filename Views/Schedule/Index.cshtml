@@ -15,74 +15,81 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Therapy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Length)
-            </th>
-            <th>
-                Booked By
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booked)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="table-responsive-xl">
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Therapy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Length)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Booked)
-                </td>
-                @* if admin show several administrator options *@
-                @if (admin)
-                {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Therapy)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Length)
+                </th>
+                <th scope="col">
+                    Booked By
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Booked)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(modelItem => item.Date)
                     </td>
-                }
-                @* if logged in but not admin *@
-                @if (ViewBag.loggedIn && !admin)
-                {
-                    if(item.Booked) {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Therapy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Length)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Booked)
+                    </td>
+                    @* if admin show several administrator options *@
+                    @if (admin)
+                    {
                         <td>
-                            Booked
-                        </td>
-                    } else {
-                        <td>
-                            <a asp-action="Book" asp-route-id="@item.Id">Book</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
                     }
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+                    @* if logged in but not admin *@
+                    @if (ViewBag.loggedIn && !admin)
+                    {
+                        if (item.Booked)
+                        {
+                            <td>
+                                Booked
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="Book" asp-route-id="@item.Id">Book</a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-@if(!ViewBag.loggedIn) 
-{
-    <p>Please <a asp-area="Identity" asp-page="/Account/Login"> login</a> or <a asp-area="Identity" asp-page="/Account/Register"> register</a> to book your therapy</p>
-}
+    @if (!ViewBag.loggedIn)
+    {
+        <p>Please <a asp-area="Identity" asp-page="/Account/Login"> login</a> or <a asp-area="Identity"
+                asp-page="/Account/Register"> register</a> to book your therapy</p>
+    }
