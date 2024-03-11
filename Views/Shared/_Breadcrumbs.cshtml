@@ -1,0 +1,100 @@
+@using Microsoft.AspNetCore.Http
+
+@{
+    string url = Context.Request.Path;
+
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        @if (url == "/Schedule")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Schedule</li>
+
+        }
+        else if (url == "/Identity/Account/Login")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Login</li>
+        }
+        else if (url == "/Identity/Account/Register")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Register</li>
+        }
+        else if (url == "/Identity/Account/ForgotPassword")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Forgotten password</li>
+        }
+        else if (url == "/Identity/Account/ResendEmailConfirmation")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Resend Email</li>
+        }
+        else if (url.Contains("/Schedule/Book"))
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Schedule" asp-action="Index">Schedule</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Book</li>
+        }
+        else if (url == "/Identity/Account/Manage")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Manage</li>
+        }
+        else if (url == "/Identity/Account/Manage/Email")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item " aria-current="page"><a href="/Identity/Account/Manage">Manage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Email</li>
+        }
+        else if (url == "/Identity/Account/Manage/TwoFactorAuthentication")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item " aria-current="page"><a href="/Identity/Account/Manage">Manage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2FA</li>
+        }
+        else if (url == "/Identity/Account/Manage/ChangePassword")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item " aria-current="page"><a href="/Identity/Account/Manage">Manage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Password</li>
+        }
+        else if (url == "/Identity/Account/Manage/PersonalData")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item " aria-current="page"><a href="/Identity/Account/Manage">Manage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Personal data</li>
+        }
+        else if (url.Contains("/Schedule/Edit"))
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Schedule" asp-action="Index">Schedule</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        }
+        else if (url.Contains("/Schedule/Details"))
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Schedule" asp-action="Index">Schedule</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Details</li>
+        }
+        else if (url.Contains("/Schedule/Delete"))
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Schedule" asp-action="Index">Schedule</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Delete</li>
+        }
+        else if (url == "/Schedule/Create")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create</li>
+        }
+        else
+        {
+            <li class="breadcrumb-item active">Home</li>
+
+        }
+
+    </ol>
+</nav>

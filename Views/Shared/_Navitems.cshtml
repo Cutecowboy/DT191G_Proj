@@ -1,0 +1,29 @@
+@using Microsoft.AspNetCore.Http
+
+@{
+    string url = Context.Request.Path;
+
+}
+
+<ul class="navbar-nav flex-grow-1">
+
+    @if (url.Contains("Schedule"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Schedule" asp-action="Index">Book</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="Index">Book</a>
+        </li>
+    }
+
+</ul>
