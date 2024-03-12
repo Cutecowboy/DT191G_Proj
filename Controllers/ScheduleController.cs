@@ -28,6 +28,13 @@ namespace projApp.Controllers
             ViewBag.Username = User.Identity.Name;
             return View(await _context.Schedules.ToListAsync());
         }
+        public async Task<IActionResult> MyBookings()
+        {
+            ViewBag.loggedIn = User.Identity.IsAuthenticated;
+            ViewBag.Username = User.Identity.Name;
+            return View(await _context.Schedules.ToListAsync());
+        }
+
 
         // GET: Schedule/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -61,7 +68,7 @@ namespace projApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-                public async Task<IActionResult> Create([Bind("Id,Date,Therapy,Length,BookedBy,Booked")] ScheduleModel scheduleModel)
+        public async Task<IActionResult> Create([Bind("Id,Date,Therapy,Length,BookedBy,Booked")] ScheduleModel scheduleModel)
         {
             if (ModelState.IsValid)
             {
@@ -122,8 +129,62 @@ namespace projApp.Controllers
             }
             return View(scheduleModel);
         }
+        // GET: Schedule/Unbook/5
+        public async Task<IActionResult> Unbook(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Username = User.Identity.Name;
 
-        // GET: Schedule/Edit/5
+            var scheduleModel = await _context.Schedules.FindAsync(id);
+            if (scheduleModel == null)
+            {
+                return NotFound();
+            }
+            return View(scheduleModel);
+        }
+
+        // POST: Schedule/Unbook/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Unbook(int id, [Bind("Id,Date,Therapy,Length,BookedBy")] ScheduleModel scheduleModel)
+        {
+            if (id != scheduleModel.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(scheduleModel);
+                    // edit bookeby to nothing
+                    scheduleModel.BookedBy = "";
+                    // set the toggle to false
+                    scheduleModel.Booked = false;
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ScheduleModelExists(scheduleModel.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(scheduleModel);
+        }
+
+        // GET: Schedule/Book/5
         public async Task<IActionResult> Book(int? id)
         {
             if (id == null)
@@ -140,7 +201,7 @@ namespace projApp.Controllers
             return View(scheduleModel);
         }
 
-        // POST: Schedule/Edit/5
+        // POST: Schedule/Book/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

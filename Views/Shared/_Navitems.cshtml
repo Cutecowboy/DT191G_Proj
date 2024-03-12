@@ -7,13 +7,28 @@
 
 <ul class="navbar-nav flex-grow-1">
 
-    @if (url.Contains("Schedule"))
+    @if (url == "/Schedule/MyBookings")
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="Index">Book</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" asp-area="" asp-controller="Schedule" asp-action="MyBookings">My Bookings</a>
+        </li>
+    }
+    else if (url.Contains("Schedule"))
     {
         <li class="nav-item">
             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" asp-area="" asp-controller="Schedule" asp-action="Index">Book</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="MyBookings">My Bookings</a>
         </li>
     }
     else
@@ -23,6 +38,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="Index">Book</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Schedule" asp-action="MyBookings">My Bookings</a>
         </li>
     }
 

@@ -20,3 +20,25 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+a:hover {
+  color: red;
+}
+
+a:focus, a:active {
+  color:purple;
+}
+
+.nav-item:hover{
+  background-color: orange;
+  border-radius: 50%;
+}
+
+.nav-item:active{
+  background-color: orangered !important;
+  border-radius: 50%;
+}
+
+option{
+  margin-left:2rem;
+}

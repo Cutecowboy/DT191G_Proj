@@ -1,0 +1,100 @@
+@model IEnumerable<projApp.Model.ScheduleModel>
+
+@{
+    ViewData["Title"] = "Index";
+    int counter = 0;
+    if (Model.Count() > 0)
+    {
+        foreach (var i in Model)
+        {
+            if (i.BookedBy == ViewBag.Username)
+            {
+                counter += 1;
+            }
+        }
+    }
+}
+
+<h1 class="mb-4">My bookings</h1>
+
+
+@if (counter > 0)
+{
+
+    <h5>You have made the following reservations:</h5>
+
+    <div class="table-responsive-xl">
+
+        <table class="table table-hover caption-bot">
+
+            <thead>
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Therapy)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Length)
+                    </th>
+                    <th scope="col">
+                        Booked By
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Booked)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    @if (item.BookedBy == ViewBag.Username)
+                    {
+                        <tr class="table-danger">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Therapy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Length)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Booked)
+                            </td>
+
+
+                            @if (item.Booked)
+                            {
+                                <td>
+                                    <a asp-action="Unbook" asp-route-id="@item.Id">Unbook</a>
+                                </td>
+                            }
+
+
+                        </tr>
+                    }
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+} 
+
+else{
+    <h5>You have no reservations, please book a time <a asp-action="Index">here!</a></h5>
+}
+
+@if (!ViewBag.loggedIn)
+{
+    <p>Please <a asp-area="Identity" asp-page="/Account/Login"> login</a> or <a asp-area="Identity"
+            asp-page="/Account/Register"> register</a> to book your therapy</p>
+}
