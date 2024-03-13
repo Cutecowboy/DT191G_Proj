@@ -11,8 +11,8 @@ using projApp.Data;
 namespace projApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240306100200_Schedule")]
-    partial class Schedule
+    [Migration("20240313150005_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,7 +228,7 @@ namespace projApp.Data.Migrations
                     b.Property<string>("BookedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Date")
+                    b.Property<DateTime?>("Date")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

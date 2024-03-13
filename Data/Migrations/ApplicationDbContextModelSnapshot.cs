@@ -225,7 +225,7 @@ namespace projApp.Data.Migrations
                     b.Property<string>("BookedBy")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Date")
+                    b.Property<DateTime?>("Date")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
