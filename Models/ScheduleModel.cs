@@ -8,7 +8,7 @@ namespace projApp.Model
         public int Id { get; set; }
         // date and time
         [Required]
-        public string? Date { get; set; }
+        public DateTime? Date { get; set; }
         // therapy type
         [Required]
         public string? Therapy { get; set; }

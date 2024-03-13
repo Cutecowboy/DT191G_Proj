@@ -88,6 +88,7 @@
         else if (url == "/Schedule/Create")
         {
             <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Schedule" asp-action="Index">Schedule</a></li>
             <li class="breadcrumb-item active" aria-current="page">Create</li>
         }
         else if (url == "/Home/About")
@@ -96,6 +97,11 @@
             <li class="breadcrumb-item active">About</li>
 
 
+        }
+        else if (url == "/Schedule/MyBookings")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active">My bookings</li>
         }
         else
         {

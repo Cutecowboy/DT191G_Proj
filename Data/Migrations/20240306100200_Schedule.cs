@@ -16,7 +16,7 @@ namespace projApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Date = table.Column<string>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Therapy = table.Column<string>(type: "TEXT", nullable: false),
                     Length = table.Column<int>(type: "INTEGER", nullable: false),
                     BookedBy = table.Column<string>(type: "TEXT", nullable: true),
