@@ -24,15 +24,25 @@ namespace projApp.Controllers
         // GET: Schedule
         public async Task<IActionResult> Index()
         {
-            ViewBag.loggedIn = User.Identity.IsAuthenticated;
-            ViewBag.Username = User.Identity.Name;
+            ViewBag.loggedIn = User.Identity?.IsAuthenticated;
+            ViewBag.Username = User.Identity?.Name;
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             return View(await _context.Schedules.ToListAsync());
         }
         [Authorize]
         public async Task<IActionResult> MyBookings()
         {
-            ViewBag.loggedIn = User.Identity.IsAuthenticated;
-            ViewBag.Username = User.Identity.Name;
+            ViewBag.loggedIn = User.Identity?.IsAuthenticated;
+            ViewBag.Username = User.Identity?.Name;
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             return View(await _context.Schedules.ToListAsync());
         }
 
@@ -45,8 +55,12 @@ namespace projApp.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Username = User.Identity.Name;
-
+            ViewBag.Username = User.Identity?.Name;
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             var scheduleModel = await _context.Schedules
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (scheduleModel == null)
@@ -61,7 +75,7 @@ namespace projApp.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewBag.Username = User.Identity.Name;
+            ViewBag.Username = User.Identity?.Name;
 
             return View();
         }
@@ -91,7 +105,7 @@ namespace projApp.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Username = User.Identity.Name;
+            ViewBag.Username = User.Identity?.Name;
             // check if _context.Schedules is null 
             if (_context.Schedules == null)
             {
@@ -148,7 +162,7 @@ namespace projApp.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Username = User.Identity.Name;
+            ViewBag.Username = User.Identity?.Name;
             // check if _context.Schedules is null 
             if (_context.Schedules == null)
             {
