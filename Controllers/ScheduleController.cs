@@ -28,6 +28,7 @@ namespace projApp.Controllers
             ViewBag.Username = User.Identity.Name;
             return View(await _context.Schedules.ToListAsync());
         }
+        [Authorize]
         public async Task<IActionResult> MyBookings()
         {
             ViewBag.loggedIn = User.Identity.IsAuthenticated;
@@ -37,6 +38,7 @@ namespace projApp.Controllers
 
 
         // GET: Schedule/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,6 +58,7 @@ namespace projApp.Controllers
         }
 
         // GET: Schedule/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewBag.Username = User.Identity.Name;
@@ -68,18 +71,20 @@ namespace projApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Date,Therapy,Length,BookedBy,Booked")] ScheduleModel scheduleModel)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(scheduleModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new{message = 5});
+                return RedirectToAction(nameof(Index), new { message = 5 });
             }
             return View(scheduleModel);
         }
 
         // GET: Schedule/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,7 +92,12 @@ namespace projApp.Controllers
                 return NotFound();
             }
             ViewBag.Username = User.Identity.Name;
-
+            // check if _context.Schedules is null 
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             var scheduleModel = await _context.Schedules.FindAsync(id);
             if (scheduleModel == null)
             {
@@ -101,6 +111,7 @@ namespace projApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Therapy,Length,BookedBy,Booked")] ScheduleModel scheduleModel)
         {
             if (id != scheduleModel.Id)
@@ -125,11 +136,12 @@ namespace projApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index), new{message = 3});
+                return RedirectToAction(nameof(Index), new { message = 3 });
             }
             return View(scheduleModel);
         }
         // GET: Schedule/Unbook/5
+        [Authorize]
         public async Task<IActionResult> Unbook(int? id)
         {
             if (id == null)
@@ -137,7 +149,12 @@ namespace projApp.Controllers
                 return NotFound();
             }
             ViewBag.Username = User.Identity.Name;
-
+            // check if _context.Schedules is null 
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             var scheduleModel = await _context.Schedules.FindAsync(id);
             if (scheduleModel == null)
             {
@@ -151,6 +168,7 @@ namespace projApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Unbook(int id, [Bind("Id,Date,Therapy,Length,BookedBy")] ScheduleModel scheduleModel)
         {
             if (id != scheduleModel.Id)
@@ -179,20 +197,26 @@ namespace projApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(MyBookings), new{message = 2});
+                return RedirectToAction(nameof(MyBookings), new { message = 2 });
             }
             return View(scheduleModel);
         }
 
         // GET: Schedule/Book/5
+        [Authorize]
         public async Task<IActionResult> Book(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ViewBag.Username = User.Identity.Name;
-
+            ViewBag.Username = User.Identity?.Name;
+            // check if _context.Schedules is null 
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             var scheduleModel = await _context.Schedules.FindAsync(id);
             if (scheduleModel == null)
             {
@@ -236,20 +260,26 @@ namespace projApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(MyBookings), new{message = 1});
+                return RedirectToAction(nameof(MyBookings), new { message = 1 });
             }
             return View(scheduleModel);
         }
 
         // GET: Schedule/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ViewBag.Username = User.Identity.Name;
-
+            ViewBag.Username = User.Identity?.Name;
+            // check if _context.Schedules is null 
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             var scheduleModel = await _context.Schedules
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (scheduleModel == null)
@@ -263,8 +293,15 @@ namespace projApp.Controllers
         // POST: Schedule/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // check if _context.Schedules is null 
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return NotFound();
+            }
             var scheduleModel = await _context.Schedules.FindAsync(id);
             if (scheduleModel != null)
             {
@@ -272,11 +309,17 @@ namespace projApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index), new{message = 4});
+            return RedirectToAction(nameof(Index), new { message = 4 });
         }
 
         private bool ScheduleModelExists(int id)
         {
+            // check if _context.Schedules is null 
+            if (_context.Schedules == null)
+            {
+                // if it is, return NotFound
+                return false;
+            }
             return _context.Schedules.Any(e => e.Id == id);
         }
     }

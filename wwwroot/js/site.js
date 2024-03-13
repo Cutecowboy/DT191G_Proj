@@ -32,6 +32,7 @@ if (urlParams.get('filter') != null) {
 let msg = document.getElementById("message");
 msg.style.display = "none";
 
+// handle messaging system
 if(urlParams.get('message') != null){
     let msgno = urlParams.get("message");
     msg.style.display = "block";
@@ -44,3 +45,10 @@ if(urlParams.get('message') != null){
     msg.innerHTML = msgarr[msgno - 1];
 }
 
+
+
+let log = document.getElementById("log");
+// hide My bookings option from navbar from admins and not logged in users
+if((log.innerHTML == "Register") || (log.innerHTML == "Hello admin@admin.com!")){
+    document.getElementById("myB").style.display = "none";
+}
