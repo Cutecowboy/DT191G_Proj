@@ -4,10 +4,10 @@
 // Write your JavaScript code.
 
 // check website if there are any query strings for filtration of the booking. 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
 if (urlParams.get('filter') != null) {
-    const filter = urlParams.get('filter');
+    let filter = urlParams.get('filter');
     // for booked filtering
     if (filter == "booked") {
         // remove all information regarding the unbooked 
@@ -29,23 +29,18 @@ if (urlParams.get('filter') != null) {
     // no need for else, if user enters the "all" selection if will per default show all 
 
 }
+let msg = document.getElementById("message");
+msg.style.display = "none";
 
+if(urlParams.get('message') != null){
+    let msgno = urlParams.get("message");
+    msg.style.display = "block";
 
-if(document.getElementById("action") != null){
-    let btn = document.getElementById("action");
-    btn.addEventListener("click", SubmitForm)
+    setTimeout(() => {
+        msg.style.display = "none";
+    }, 5000);
+    let msgarr = ["You have successfully booked a time!", "You have successfully unbooked your time!", "You have successfully edited the timeslot!", "You have successfully removed the timeslot!", "You have successfully created a new timeslot!"]
+
+    msg.innerHTML = msgarr[msgno - 1];
 }
 
-console.log(queryString);
-console.log(window.location.pathname)
-function SubmitForm(){
-    let text = "hej";
-    let resp = confirm(text);
-    if(!resp){
-        window.location.href = "www.google.se"
-    } else {
-        window.location.href = "www.google.se"
-
-    }
-
-}

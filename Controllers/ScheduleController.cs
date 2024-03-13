@@ -74,7 +74,7 @@ namespace projApp.Controllers
             {
                 _context.Add(scheduleModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new{message = 5});
             }
             return View(scheduleModel);
         }
@@ -125,7 +125,7 @@ namespace projApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new{message = 3});
             }
             return View(scheduleModel);
         }
@@ -179,7 +179,7 @@ namespace projApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyBookings), new{message = 2});
             }
             return View(scheduleModel);
         }
@@ -236,7 +236,7 @@ namespace projApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyBookings), new{message = 1});
             }
             return View(scheduleModel);
         }
@@ -272,7 +272,7 @@ namespace projApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new{message = 4});
         }
 
         private bool ScheduleModelExists(int id)
