@@ -39,7 +39,7 @@ if(urlParams.get('message') != null){
     setTimeout(() => {
         msg.style.display = "none";
     }, 5000);
-    let msgarr = ["You have successfully booked a time!", "You have successfully unbooked your time!", "You have successfully edited the timeslot!", "You have successfully removed the timeslot!", "You have successfully created a new timeslot!"]
+    let msgarr = ["You have successfully booked a time!", "You have successfully unbooked your time!", "You have successfully edited the timeslot!", "You have successfully removed the timeslot!", "You have successfully created a new timeslot!", "You have successfully logged out!"]
 
     msg.innerHTML = msgarr[msgno - 1];
 }

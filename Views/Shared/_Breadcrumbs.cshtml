@@ -90,6 +90,13 @@
             <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Create</li>
         }
+        else if (url == "/Home/About")
+        {
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item active">About</li>
+
+
+        }
         else
         {
             <li class="breadcrumb-item active">Home</li>
